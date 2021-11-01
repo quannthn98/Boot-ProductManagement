@@ -1,7 +1,7 @@
-package com.example.demospringbootproductmanagement.codegym.service;
+package com.codegym.service;
 
-import com.example.demospringbootproductmanagement.codegym.model.Category;
-import com.example.demospringbootproductmanagement.codegym.repository.ICategoryRepository;
+import com.codegym.repository.ICategoryRepository;
+import com.codegym.model.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

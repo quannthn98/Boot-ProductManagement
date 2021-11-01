@@ -1,4 +1,4 @@
-package com.example.demospringbootproductmanagement.codegym.model;
+package com.codegym.model;
 
 import lombok.Data;
 

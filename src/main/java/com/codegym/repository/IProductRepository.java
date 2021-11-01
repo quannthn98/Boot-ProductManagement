@@ -1,6 +1,6 @@
-package com.example.demospringbootproductmanagement.codegym.repository;
+package com.codegym.repository;
 
-import com.example.demospringbootproductmanagement.codegym.model.Product;
+import com.codegym.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

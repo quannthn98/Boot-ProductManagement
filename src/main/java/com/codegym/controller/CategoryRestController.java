@@ -1,12 +1,13 @@
-package com.example.demospringbootproductmanagement.codegym.controller;
+package com.codegym.controller;
 
-import com.example.demospringbootproductmanagement.codegym.model.Category;
-import com.example.demospringbootproductmanagement.codegym.service.ICategoryService;
+import com.codegym.model.Category;
+import com.codegym.service.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -18,7 +19,6 @@ import java.util.Optional;
 public class CategoryRestController {
     @Autowired
     ICategoryService categoryService;
-
     @GetMapping
     public ResponseEntity<Page<Category>> findAll(Pageable pageable){
         return new ResponseEntity<>(categoryService.findAll(pageable), HttpStatus.OK);
@@ -33,7 +33,7 @@ public class CategoryRestController {
     public ResponseEntity<Category> update(@RequestBody Category category, @PathVariable Long id){
         Optional<Category> optionalCategory = categoryService.findById(id);
         if(!optionalCategory.isPresent()){
-            return new ResponseEntgiity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             category.setId(id);
             return new ResponseEntity<>(categoryService.save(category), HttpStatus.OK);

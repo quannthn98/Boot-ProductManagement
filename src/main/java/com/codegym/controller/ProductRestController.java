@@ -1,18 +1,22 @@
-package com.example.demospringbootproductmanagement.codegym.controller;
+package com.codegym.controller;
 
-import com.example.demospringbootproductmanagement.codegym.model.Product;
-import com.example.demospringbootproductmanagement.codegym.service.IProductService;
+import com.codegym.model.Product;
+import com.codegym.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
+@Secured("ROLE_USER")
 @RequestMapping("/products")
 public class ProductRestController {
     @Autowired
