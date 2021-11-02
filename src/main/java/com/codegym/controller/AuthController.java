@@ -12,10 +12,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api")
+@CrossOrigin("*")
 public class AuthController {
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -25,6 +26,9 @@ public class AuthController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
@@ -36,7 +40,14 @@ public class AuthController {
         String jwt = jwtService.generateTokenLogin(authentication);
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User currentUser = userService.findByUsername(user.getUsername());
-        return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), currentUser.getUsername(), userDetails.getAuthorities()));
+        return new ResponseEntity<>(new JwtResponse(jwt, currentUser.getId(), userDetails.getUsername(), currentUser.getUsername(), userDetails.getAuthorities()), HttpStatus.OK);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userService.save(user);
+        return new ResponseEntity<>("Register Succesfully", HttpStatus.CREATED);
     }
 
     @GetMapping("/hello")

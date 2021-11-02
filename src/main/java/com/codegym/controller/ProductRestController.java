@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@Secured("ROLE_USER")
+@Secured("ROLE_ADMIN")
 @RequestMapping("/products")
 public class ProductRestController {
     @Autowired
