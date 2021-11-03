@@ -5,6 +5,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -16,8 +17,10 @@ public class UserPrinciple implements UserDetails {
 
     private Long id;
 
+    @NotEmpty(message = "Username must not be empty")
     private String username;
 
+    @NotEmpty(message = "Password must not be empty")
     private String password;
 
     private Collection<? extends GrantedAuthority> roles;

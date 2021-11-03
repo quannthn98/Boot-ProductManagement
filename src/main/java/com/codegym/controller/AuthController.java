@@ -1,5 +1,6 @@
 package com.codegym.controller;
 
+import com.codegym.Exception.DuplicateException;
 import com.codegym.model.User;
 import com.codegym.security.IUserService;
 import com.codegym.security.JwtService;
@@ -44,10 +45,14 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody User user){
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        userService.save(user);
-        return new ResponseEntity<>("Register Succesfully", HttpStatus.CREATED);
+    public ResponseEntity<User> register(@RequestBody User user) throws DuplicateException {
+        if (userService.isUserDuplicated(user)){
+            throw new DuplicateException();
+        } else {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userService.save(user);
+            return new ResponseEntity<>(user, HttpStatus.CREATED);
+        }
     }
 
     @GetMapping("/hello")

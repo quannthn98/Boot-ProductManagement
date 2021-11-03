@@ -48,4 +48,14 @@ public class UserService implements IUserService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+
+    @Override
+    public boolean isUserDuplicated(User user) {
+        User optionalUser = userRepository.findByUsername(user.getUsername());
+        if (optionalUser == null){
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

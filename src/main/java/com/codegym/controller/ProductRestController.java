@@ -16,11 +16,11 @@ import java.util.Optional;
 
 @RestController
 @CrossOrigin("*")
-@Secured("ROLE_ADMIN")
 @RequestMapping("/products")
 public class ProductRestController {
     @Autowired
     IProductService productService;
+
 
     @GetMapping
     public ResponseEntity<Page<Product>> findAll(Pageable pageable){

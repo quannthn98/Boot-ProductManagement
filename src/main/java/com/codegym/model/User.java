@@ -3,6 +3,7 @@ package com.codegym.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Entity
@@ -12,8 +13,11 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
+    @NotEmpty(message = "username must not be empty")
     private String username;
 
+    @NotEmpty(message = "password must not be empty")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)

@@ -7,4 +7,6 @@ import org.springframework.stereotype.Service;
 
 public interface IUserService extends IGeneralService<User>, UserDetailsService {
     User findByUsername(String username);
+
+    boolean isUserDuplicated(User user);
 }
